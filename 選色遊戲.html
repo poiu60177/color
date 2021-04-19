@@ -56,7 +56,7 @@
 
     <script>
         var GamePanel = document.querySelector('.game-panel')
-        var level = 2
+        var level = 1
 
         var bgColor
         var bgColor2
@@ -66,17 +66,16 @@
             var z = Math.floor(Math.random() * 256);
             bgColor = "rgba(" + x + "," + y + "," + z + ", 1)";
 
-            var colorchange = 0.6 + level * 0.05
+            var colorchange = 0.4 + level * 0.05
             bgColor2 = "rgba(" + x + "," + y + "," + z + ", " + colorchange + ")"
 
         }
         newGame()
-        
+
         function newGame() {
             random_bg_color()
-            var answer = Math.floor(Math.random() * Math.pow(level, 2))
-            console.log(answer);
 
+        
             for (let i = 0; i < Math.pow(level, 2); i++) {
 
                 GamePanel.innerHTML += `<div class="box"></div>`
@@ -85,23 +84,30 @@
 
                 box[i].style.width = "calc(100% /" + level + ")";
                 box[i].style.height = "calc(100% /" + level + ")";
-                box[answer].style.background = bgColor2;
+
                 box[i].style.background = bgColor;
+            }
+            
+                var answer = Math.floor(Math.random() * Math.pow(level, 2))
+                box[answer].style.background = bgColor2;
 
-
-
-
-                box[i].onclick = function levelup() {
+                box[answer].onclick = function levelup() {
                     if (level < 9) {
-                        level = level++;
+                        GamePanel.innerHTML = ''
+                        level = level + 1;
+                        newGame()
                     }
                     else {
-                        alert = ('大家都回去吧')
+                        alert('大家都回去吧')
+                        GamePanel.innerHTML = ''
                         level = 1
+                        newGame()
+                        
                     }
                 }
-            }
         }
+        
+            
     </script>
 </body>
 
